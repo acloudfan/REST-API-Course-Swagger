@@ -95,6 +95,12 @@ paths:
       externalDocs:
         description: Link to the /vacations ops details & flow
         url: http://www.acloudfan.com
+
+      consumes: 
+        - application/json
+      produces: 
+        - application/json
+
       parameters:
         - $ref : "#/parameters/IdInPath"
         
@@ -103,6 +109,20 @@ paths:
           description: Success
           schema:
             $ref: "#/definitions/Vacation"
+
+        "404":
+          description: When a vacation package is NOT found
+          schema:
+            $ref: "#/definitions/NotFoundError"
+            
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/GeneralError"
+      security:
+        # Array elements needed only in case of OAuth otherwise MUST be empty. In case of OAuth array has the scopes
+        - KeySecurity : []
           
 # definitions + parameters + securityDefinitions
 definitions:
