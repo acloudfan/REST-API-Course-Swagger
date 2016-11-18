@@ -56,6 +56,7 @@ paths:
   # Vacation API
   /vacations:
     get:
+      summary: this is a get op
       description: Returns the collection of valid (i.e., last date >= today's date) vacation packages
       # Refer to the tags created earlier
       security:
@@ -86,7 +87,14 @@ paths:
             
   /vacations/{id}:
     get:
+      summary: this is a get op
       description: Returns the vacation package identified by {id}
+      tags:
+        - vacations
+        - packages
+      externalDocs:
+        description: Link to the /vacations ops details & flow
+        url: http://www.acloudfan.com
       parameters:
         - $ref : "#/parameters/IdInPath"
         
