@@ -2,6 +2,8 @@
 # http://www.acloudfan.com
 # Part 1 of the incremental creation of the swagger for
 # Vacations API for the fictitious enterprise "ACME Travels"
+
+# Swagger 2.0 always begin with the following
 swagger: "2.0"
 
 ########### Part 1 ###########
