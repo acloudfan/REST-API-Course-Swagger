@@ -1,16 +1,25 @@
+# Swagger 2.0 demo used in the REST API Course
+# http://www.acloudfan.com
+# Part 1 of the incremental creation of the swagger for
+# Vacations API for the fictitious enterprise "ACME Travels"
 swagger: "2.0"
 
-info:
-  version: "0.0.1"
-  title: ACME Vacations API
-  description: This specification is for the ACME Travel packages |
-               These specifications were used to teach the students how
-               to create the Swagger specifications for their REST API
-  contact:
-    name: A Cloud Fan
-    url: http://www.acloudfan.com
-    email: raj@acloudfan.com
-    
-  license:
-    name: GNU
-    url: http://acloudfan.com
+########### Part 1 ###########
+
+# git checkout  rootdocument
+# to check the content in part-1
+
+########### Part 2 ########
+
+# git checkout  definitions
+# to check the content in part-2
+
+########### Part 3 ########
+
+# git checkout  paths
+# to check the content in part-3
+
+########### Final Swagger ###
+
+# git checkout  final
+# to check the content for final state of the swagger
