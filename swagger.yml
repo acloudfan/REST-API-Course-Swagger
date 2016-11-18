@@ -6,17 +6,50 @@
 # Swagger 2.0 always begin with the following
 swagger: "2.0"
 
-########### Part 1 ###########
+info:
+  version: "0.0.1"
+  title: ACME Vacations API
+  description: This specification is for the ACME Travel packages |
+               These specifications were used to teach the students how
+               to create the Swagger specifications for their REST API
+  contact:
+    name: A Cloud Fan
+    url: http://www.acloudfan.com
+    email: raj@acloudfan.com
+    
+  license:
+    name: GNU
+    url: http://acloudfan.com
 
-# git checkout  rootdocument
-# to check the content in part-1
-
-########### Part 2 ########
-
-# git checkout  definitions
-# to check the content in part-2
-
-########### Part 3 ########
+# during dev, should point to your local machine
+host: localhost:3000
+# basePath prefixes all resource paths- Version 1.0
+basePath: /v1/
+# 
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+# Tags for ACME Travel API
+tags:
+  - name: vacations
+    description: Refer to vacation packages that are offered by ACME travel
+    
+  - name: hotels
+    description: Refer to partner hotels through which ACME offers vacation |
+                 deals.
+  - name: package
+    description: Same as vacations. It refers to the vacation package.
+    
+externalDocs:
+    description: This is an external doc
+    url: http://developer.acmetravel.com/docs
 
 # This is where the resource paths are defined
 paths:
@@ -62,8 +95,107 @@ paths:
           description: Success
           schema:
             $ref: "#/definitions/Vacation"
+          
+# definitions + parameters + securityDefinitions
+definitions:
+  # A general message schema in case of an error
+  GeneralError:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+  # A Not found error that is sent back in case no results are found for the 
+  # requested resource
+  NotFoundError:
+    required:
+      - message
+      - hint
+    properties:
+      message:
+        type: string
+      hint:
+        type: string
+        
+  # Collection of vacations
+  Vacations:
+    type: array
+    items: 
+      $ref: "#/definitions/Vacation"
+      
+  # Vacation schema - NOT ALL FIELDS INCLUDED - for clarity
+  # Students may take it as an exercise
+  Vacation:
+    required:
+      - name
+      - description
+      - type
+      - numOfNights
+    properties:
+      # Name of the package
+      name:
+        type: string
+      # Description of the package
+      description:
+        type: string
+       
+      # Type of the vacation package - shows how to use enumerations 
+      type:
+        type: string
+        enum:
+          - resort
+          - cruise
+      # All the destinations included in the vacation package  
+      # Shows how to use array of complex objects
+      destinations:
+        type: array
+        # There should be at least 1 destination in the package
+        minItems: 1
+        maxItems: 6
+        items:
+          $ref: "#/definitions/Location"
+      
+      # Number of nights
+      numOfNights:
+        type: number
+        minimum: 1
+        maximum: 31
+      # Note for students : Please add rest of the fields in schema
+    example:
+      {
+        name: 'Bahamas1000',
+        description: 'This is a 4 night package that is most popular',
+        type : 'cruise',
+        destinations:[
+          city: 'Nassau',
+          country: 'Bahamas'
+        ],
+        numOfNights: 4
+      }
+  # Definition for the location schema    
+  # Refered from the destinations in Vacation schema
+  Location:
+    required:
+      - city
+      - country
+    properties:
+      city:
+        type: string
+      country:
+        type: string
 
-########### Final Swagger ###
-
-# git checkout  final
-# to check the content for final state of the swagger
+# Parameter Definitions
+# Common parameters used in the operations
+parameters:
+  IdInPath:
+      name: id
+      in: path
+      type: string
+      required: true
+      
+# Security Definitions
+securityDefinitions:
+  KeySecurity:
+    type: apiKey
+    in: query
+    name: api_key
