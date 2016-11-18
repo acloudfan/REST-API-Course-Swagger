@@ -8,8 +8,50 @@ swagger: "2.0"
 
 ########### Part 1 ###########
 
-# git checkout  rootdocument
-# to check the content in part-1
+info:
+  version: "0.0.1"
+  title: ACME Vacations API
+  description: This specification is for the ACME Travel packages |
+               These specifications were used to teach the students how
+               to create the Swagger specifications for their REST API
+  contact:
+    name: A Cloud Fan
+    url: http://www.acloudfan.com
+    email: raj@acloudfan.com
+    
+  license:
+    name: GNU
+    url: http://acloudfan.com
+
+# during dev, should point to your local machine
+host: localhost:3000
+# basePath prefixes all resource paths- Version 1.0
+basePath: /v1/
+# 
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+# Tags for ACME Travel API
+tags:
+  - name: vacations
+    description: Refer to vacation packages that are offered by ACME travel
+    
+  - name: hotels
+    description: Refer to partner hotels through which ACME offers vacation |
+                 deals.
+  - name: package
+    description: Same as vacations. It refers to the vacation package.
+    
+externalDocs:
+    description: This is an external doc
+    url: http://developer.acmetravel.com/docs
 
 ########### Part 2 ########
 
