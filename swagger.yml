@@ -18,8 +18,50 @@ swagger: "2.0"
 
 ########### Part 3 ########
 
-# git checkout  paths
-# to check the content in part-3
+# This is where the resource paths are defined
+paths:
+  # Vacation API
+  /vacations:
+    get:
+      description: Returns the collection of valid (i.e., last date >= today's date) vacation packages
+      # Refer to the tags created earlier
+      security:
+        # Array elements needed only in case of OAuth otherwise MUST be empty. In case of OAuth array has the scopes
+        - KeySecurity : []
+        
+      tags:
+        - vacations
+        - package
+      # parameters: There are no parameters for this operation 
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/Vacations"
+
+        "404":
+          description: When a vacation package is NOT found
+          schema:
+            $ref: "#/definitions/NotFoundError"
+            
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/GeneralError"
+            
+  /vacations/{id}:
+    get:
+      description: Returns the vacation package identified by {id}
+      parameters:
+        - $ref : "#/parameters/IdInPath"
+        
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/Vacation"
 
 ########### Final Swagger ###
 
