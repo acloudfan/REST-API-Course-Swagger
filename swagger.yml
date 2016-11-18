@@ -1,6 +1,6 @@
 # Swagger 2.0 demo used in the REST API Course
 # http://www.acloudfan.com
-# Part 3 of the incremental creation of the swagger for
+# Part 1 of the incremental creation of the swagger for
 # Vacations API for the fictitious enterprise "ACME Travels"
 
 # Swagger 2.0 always begin with the following
@@ -53,7 +53,20 @@ paths:
             
   /vacations/{id}:
     get:
+      summary: this is a get op
       description: Returns the vacation package identified by {id}
+      tags:
+        - vacations
+        - packages
+      externalDocs:
+        description: Link to the /vacations ops details & flow
+        url: http://www.acloudfan.com
+
+      consumes: 
+        - application/json
+      produces: 
+        - application/json
+
       parameters:
         - $ref : "#/parameters/IdInPath"
         
@@ -62,6 +75,20 @@ paths:
           description: Success
           schema:
             $ref: "#/definitions/Vacation"
+
+        "404":
+          description: When a vacation package is NOT found
+          schema:
+            $ref: "#/definitions/NotFoundError"
+            
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/GeneralError"
+      security:
+        # Array elements needed only in case of OAuth otherwise MUST be empty. In case of OAuth array has the scopes
+        - KeySecurity : []
 
 ########### Final Swagger ###
 
